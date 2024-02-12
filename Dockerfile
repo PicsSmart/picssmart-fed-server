@@ -1,5 +1,5 @@
 # Stage 1: Build environment
-FROM python:3.10.12-slim as builder
+FROM python:3.10.12-slim
 
 WORKDIR /app
 
@@ -7,19 +7,9 @@ COPY image-captioning/requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip cache purge
 
-# # Stage 2: Runtime environment
-FROM python:3.10.12-slim as final
-
-WORKDIR /app
-
-# Copy the installed dependencies from the builder stage
-COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
-
-WORKDIR /app
-
-# Copy the Python script
-COPY  . .
+COPY . .
 
 EXPOSE 8080
 
