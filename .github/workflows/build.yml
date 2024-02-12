@@ -33,8 +33,7 @@ jobs:
           echo "File version: $VERSION"
           echo "::set-output name=version::$VERSION"
 
-      - name: Build Docker Image
+      - name: Build and Push Docker Image
         run: |
-          docker build -t "${IMAGE_NAME}:temp" .
-          CONTAINER_ID=$(docker create "${IMAGE_NAME}:temp")
-          docker export "${CONTAINER_ID}" | docker import - "${IMAGE_NAME}:${{ steps.get-version.outputs.version }}"
+          docker build -t "${{secrets.DOCKER_USER}}/${IMAGE_NAME}:${{ steps.get-version.outputs.version }}" .
+          docker push "${{secrets.DOCKER_USER}}/${IMAGE_NAME}:${{ steps.get-version.outputs.version }}"
