@@ -24,4 +24,4 @@ COPY . .
 EXPOSE 8080
 
 # Run the Python script
-CMD ["python", "server.py"]
+CMD ["python", "image-captioning/server.py"]
