@@ -8,6 +8,8 @@ COPY image-captioning/requirements.txt .
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY . .
+
 # # Stage 2: Runtime environment
 # FROM python:3.9-slim
 
