@@ -1,0 +1,11 @@
+# Model Checkpoints
+captioning_processor
+captioning_processor
+
+# environments
+env
+
+# vscode
+.vscode
+
+__pycache__/

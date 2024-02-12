@@ -1,0 +1,31 @@
+name: Build Docker Container
+
+permissions:
+    contents: write
+    packages: write
+  
+on:
+    push:
+      branches:
+        - main
+
+jobs:
+  build-and-push-image:
+    runs-on: self-hosted
+    permissions:
+        packages: write  
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+        with:
+            token: ${{ secrets.PAT }}
+            
+      - name: Log in to the Docker hub
+        run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          push: false
+          tags: image-captioning-fed-server:latest
+          github-token	: ${{ secrets.PAT }}
